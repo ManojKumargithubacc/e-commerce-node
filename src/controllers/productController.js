@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
+import { getProducts } from "../service/productService.js";
+import { STATUS_CODES,MESSAGES } from "../constants/constants.js";
 
 export const Productdata = async (req, res) => {
   try {
-    const fetchedData = await mongoose.connection.db.collection("Products");
-    const products = await fetchedData.find({}).toArray();
-    res.send([products]);
+    const products = await getProducts();
+    res.send(products);
   } catch (error) {
-    res.send("Server error");
+    res.status(STATUS_CODES.SERVER_ERROR).send(MESSAGES.SERVER_ERROR);
   }
 };

@@ -1,7 +1,10 @@
 import express from "express";
-const productRoute = express.Router();
-
 import { Productdata } from "../controllers/productController.js";
 
-productRoute.post("/products", Productdata);
+const productRoute = express.Router();
+
+productRoute.get("/products", Productdata);
 export default productRoute;
+
+
+

@@ -1,4 +1,13 @@
 import mongoose from "mongoose";
+import Order from "./ordersModel.js";
+
+const addressSchema = new mongoose.Schema({
+  addressLine1: { type: String, required: true },
+  addressLine2: { type: String },
+  city: { type: String, required: true },
+  state: { type: String, required: true },
+  postalCode: { type: String, required: true },
+});
 
 const userSchema = new mongoose.Schema(
   {
@@ -33,9 +42,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       minlength: [8, "Password must be at least 8 characters long"],
     },
+    addresses: [addressSchema],
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
   },
   { timestamps: true }
 );
 
 export default mongoose.model("User", userSchema);
-
