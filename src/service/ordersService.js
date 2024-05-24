@@ -26,7 +26,9 @@ export const createOrderService = async (userId, items, address) => {
       if (!user) {
         throw new Error("User not found");
       }
-      const orders = await Order.find({ userId }).populate('items.productId');
+      const orders = await Order.find({ userId }).populate({
+        path: 'items.productId',
+      });
       return orders;
     } catch (error) {
       throw new Error("Error fetching orders: " + error.message);
